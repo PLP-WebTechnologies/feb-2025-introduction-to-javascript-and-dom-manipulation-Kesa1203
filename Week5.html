@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added viewport meta tag for responsiveness -->
+  <title>JS Dynamic Interaction</title>
+  <link rel="stylesheet" href="Week5.css"> <!-- Link to external CSS -->
+ </head>
+  <body>
+  <!-- Heading element whose text will be dynamically updated -->
+  <h2 id="dynamicText">Original Text</h2>
+
+  <!-- Button to change text and toggle a style -->
+  <button id="changeTextBtn">Change Text & Style</button>
+
+  <!-- Button to add or remove a dynamically created box -->
+  <button id="toggleElementBtn">Add/Remove Box</button>
+
+  <!-- Container to hold dynamically added elements -->
+  <div id="container"></div>
+
+  <script>
+    // Select the heading element to update its text and style
+    const textElement = document.getElementById('dynamicText');
+
+    // Select the button to change text and toggle style
+    const changeTextBtn = document.getElementById('changeTextBtn');
+
+    // Select the button to add or remove a box element
+    const toggleElementBtn = document.getElementById('toggleElementBtn');
+
+    // Select the container where new elements will be added
+    const container = document.getElementById('container');
+
+    // Array of text values to cycle through
+    const textValues = ['Text Changed Dynamically!', 'Another Text Change!', 'Keep Clicking!', 'Dynamic Text Rocks!'];
+    let textIndex = 0; // Index to track the current text
+
+    // Event listener for changing text and toggling a style class
+    changeTextBtn.addEventListener('click', () => {
+      // Update the text content of the heading with the next value in the array
+      textElement.textContent = textValues[textIndex];
+      
+      // Increment the index and reset it if it exceeds the array length
+      textIndex = (textIndex + 1) % textValues.length;
+
+      // Toggle the 'highlight' class to apply or remove styling
+      textElement.classList.toggle('highlight');
+    });
+
+    // Event listener for adding or removing a box element
+    toggleElementBtn.addEventListener('click', () => {
+      // Check if the box element already exists
+      const box = document.getElementById('dynamicBox');
+
+      if (box) {
+        // If the box exists, remove it from the DOM
+        box.remove();
+      } else {
+        // If the box does not exist, create a new div element
+        const newDiv = document.createElement('div');
+        
+        // Set the ID for the new div
+        newDiv.id = 'dynamicBox';
+        
+        // Set the text content for the new div
+        newDiv.textContent = 'I am a new box!';
+        
+        // Add a CSS class to style the new div
+        newDiv.classList.add('styled-box');
+        
+        // Append the new div to the container
+        container.appendChild(newDiv);
+      }
+    });
+  </script>
+  </body>
+</html>
